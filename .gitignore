@@ -1,0 +1,16 @@
+# Ignore Visual Studio cache
+.vs/
+*.user
+*.suo
+
+# Ignore build results
+bin/
+obj/
+
+# Ignore temporary files
+*.log
+*.tmp
+
+# Ignore other system files
+[Dd]ebug/
+[Rr]elease/
