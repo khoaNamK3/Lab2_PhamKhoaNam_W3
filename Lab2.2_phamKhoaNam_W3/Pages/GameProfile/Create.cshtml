@@ -1,0 +1,58 @@
+﻿@page
+@model Lab2._2_phamKhoaNam_W3.Pages.GameProfile.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Create</h1>
+
+<h4>GameProfile</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GameProfile.CategoryId" class="control-label"></label>
+                <select asp-for="GameProfile.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameProfile.Title" class="control-label"></label>
+                <input asp-for="GameProfile.Title" class="form-control" />
+                <span asp-validation-for="GameProfile.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameProfile.Price" class="control-label"></label>
+                <input asp-for="GameProfile.Price" class="form-control" />
+                <span asp-validation-for="GameProfile.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameProfile.ReleaseDate" class="control-label"></label>
+                <input asp-for="GameProfile.ReleaseDate" class="form-control" />
+                <span asp-validation-for="GameProfile.ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameProfile.DeveloperId" class="control-label"></label>
+                <input asp-for="GameProfile.DeveloperId" class="form-control" />
+                <span asp-validation-for="GameProfile.DeveloperId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameProfile.CategoryId" class="control-label"></label>
+                <input asp-for="GameProfile.CategoryId" class="form-control" />
+                <span asp-validation-for="GameProfile.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

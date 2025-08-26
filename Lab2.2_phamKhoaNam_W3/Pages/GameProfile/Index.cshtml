@@ -1,4 +1,92 @@
 ﻿@page
 @model Lab2._2_phamKhoaNam_W3.Pages.GameProfile.IndexModel
 @{
+    ViewData["Title"] = "Index";
 }
+<h1>Index</h1>
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage;
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GameLists[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GameLists[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GameLists[0].ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GameLists[0].DeveloperId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GameLists[0].CategoryId)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.GameLists)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Developer.DeveloperName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.GameId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.GameId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.GameId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/GameHub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.on("GameUpdated", function (game) {
+        console.log("Game updated:", game);
+
+        location.reload();
+    });
+
+    connection.on("GameDeleted", function (game) {
+        console.log("Game Deleted:", game);
+        location.reload();
+    });
+
+    connection.start()
+        .then(() => {
+            console.log("Connected!");
+
+            connection.invoke("SendMessage", "Client1", "Hello SignalR!");
+        })
+        .catch(err => console.error("SignalR error: ", err));
+</script>

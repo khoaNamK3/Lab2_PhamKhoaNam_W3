@@ -19,6 +19,10 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 // Add Service
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 // Add services to the container. 
 builder.Services.AddRazorPages();
 builder.Services.AddDistributedMemoryCache(); 
