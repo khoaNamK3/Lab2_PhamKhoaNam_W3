@@ -1,5 +1,6 @@
 using BLL.Interface;
 using DAL.Models;
+using Lab2._2_phamKhoaNam_W3.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,10 +12,12 @@ namespace Lab2._2_phamKhoaNam_W3.Pages.GameProfile
     {
         private readonly IGameService _gameService;
         private readonly ICategoryService _categoryService;
-        public EditModel(ICategoryService categoryService, IGameService gameService)
+        private readonly IHubContext<GameHub> _hubContext;
+        public EditModel(ICategoryService categoryService, IGameService gameService, IHubContext<GameHub> hubContext)
         {
             _categoryService = categoryService;
             _gameService = gameService;
+            _hubContext = hubContext;
         }
 
 
@@ -65,7 +68,7 @@ namespace Lab2._2_phamKhoaNam_W3.Pages.GameProfile
                     throw;
                 }
             }
-            //await _hubContext.Clients.All.SendAsync("PantherUpdated", PantherProfile.PantherProfileId);
+            await _hubContext.Clients.All.SendAsync("GameUpdated", GameProfile.GameId);
             return RedirectToPage("./Index");
         }
 

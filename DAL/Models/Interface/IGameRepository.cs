@@ -13,5 +13,6 @@ namespace DAL.Models.Interface
         public  Task DeleteGame(Game game);
         public  Task UpdateGameById(int id, Game newGame);
         public  Task AddNewGameProfile(Game newGame);
+        public  Task<List<Game>> SearchGameByPrice(decimal price);
     }
 }

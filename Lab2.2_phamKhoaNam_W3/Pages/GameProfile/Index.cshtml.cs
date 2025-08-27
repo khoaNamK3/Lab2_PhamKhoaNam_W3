@@ -17,13 +17,21 @@ namespace Lab2._2_phamKhoaNam_W3.Pages.GameProfile
         [TempData]
         public string ErrorMessage { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public decimal? PriceFilter { get; set; }
         public IList<Game> GameLists { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync()
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("RoleId")))
             {
-                GameLists = await _gameService.GetAll();
+                if (PriceFilter.HasValue)
+                {
+                    GameLists = await _gameService.SearchGameByPrice(PriceFilter.Value);
+                }
+                else {
+                    GameLists = await _gameService.GetAll();
+                }
                 return Page();
             }
             return RedirectToPage("/Shared/Login");

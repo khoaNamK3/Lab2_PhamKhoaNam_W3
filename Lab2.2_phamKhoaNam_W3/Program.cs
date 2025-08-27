@@ -4,6 +4,7 @@ using BLL.Service;
 using DAL.Models;
 using DAL.Models.Interface;
 using DAL.Repositories;
+using Lab2._2_phamKhoaNam_W3.Hubs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -67,5 +68,5 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
-//app.MapHub<>("/"); // SignalR
+app.MapHub<GameHub>("/GameHub"); // SignalR
 app.Run();

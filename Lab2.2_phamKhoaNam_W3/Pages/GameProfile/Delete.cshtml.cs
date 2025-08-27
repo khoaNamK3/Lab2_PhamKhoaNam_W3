@@ -1,5 +1,6 @@
 using BLL.Interface;
 using DAL.Models;
+using Lab2._2_phamKhoaNam_W3.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
@@ -10,10 +11,12 @@ namespace Lab2._2_phamKhoaNam_W3.Pages.GameProfile
     {
         private readonly IGameService _gameService;
         private readonly ICategoryService _categoryService;
-        public DeleteModel(ICategoryService categoryService, IGameService gameService)
+        private readonly IHubContext<GameHub> _hubContext;
+        public DeleteModel(ICategoryService categoryService, IGameService gameService, IHubContext<GameHub> hubContext)
         {
             _categoryService = categoryService;
             _gameService = gameService;
+            _hubContext = hubContext;
         }
 
         public Game GameProfile { get; set; }
@@ -61,7 +64,7 @@ namespace Lab2._2_phamKhoaNam_W3.Pages.GameProfile
             {
                 GameProfile = gameProfile;
                 await _gameService.DeleteGame(GameProfile);
-                //await _hubContext.Clients.All.SendAsync("PantherDeleted", PantherProfile.PantherProfileId);
+                await _hubContext.Clients.All.SendAsync("GameDeleted", GameProfile.GameId);
             }
 
             return RedirectToPage("./Index");

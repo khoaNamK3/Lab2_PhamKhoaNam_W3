@@ -13,6 +13,17 @@
         @Model.ErrorMessage;
     </div>
 }
+
+<form method="get">
+    <div class="form-group">
+        <label for="price">Search by Price (less than):</label>
+        <input type="number" step="0.01" name="PriceFilter" id="price"
+               class="form-control" value="@Model.PriceFilter" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a asp-page="./Index" class="btn btn-secondary">Reset</a>
+</form>
+
 <table class="table">
     <thead>
         <tr>

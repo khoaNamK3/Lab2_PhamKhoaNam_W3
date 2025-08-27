@@ -20,12 +20,12 @@ namespace BLL.Service
 
         public async Task AddNewGameProfile(Game newGame)
         {
-           await _gameRepository.AddNewGameProfile(newGame);
+            await _gameRepository.AddNewGameProfile(newGame);
         }
 
         public async Task DeleteGame(Game game)
         {
-            await  _gameRepository.DeleteGame(game);
+            await _gameRepository.DeleteGame(game);
         }
 
         public async Task<List<Game>> GetAll()
@@ -40,7 +40,11 @@ namespace BLL.Service
 
         public async Task UpdateGameById(int id, Game newGame)
         {
-             await _gameRepository.UpdateGameById(id, newGame);
+            await _gameRepository.UpdateGameById(id, newGame);
+        }
+        public async Task<List<Game>> SearchGameByPrice(decimal price)
+        {
+            return await _gameRepository.SearchGameByPrice(price);
         }
     }
 }

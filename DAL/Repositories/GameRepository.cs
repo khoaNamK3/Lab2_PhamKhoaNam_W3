@@ -40,7 +40,7 @@ namespace DAL.Repositories
 
             if (exitGame != null && newGame != null)
             {
-               exitGame.Price = newGame.Price;
+                exitGame.Price = newGame.Price;
                 exitGame.Title = newGame.Title;
                 exitGame.ReleaseDate = newGame.ReleaseDate;
                 exitGame.CategoryId = newGame.CategoryId;
@@ -55,5 +55,11 @@ namespace DAL.Repositories
             _context.Games.Add(newGame);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Game>> SearchGameByPrice(decimal price)
+        {
+            return await _context.Games.Include(g => g.Category).Include(g => g.Developer).Where(g => g.Price < price).ToListAsync();
+        }
+
     }
 }
